@@ -3,6 +3,24 @@ entries:
   azure-metrics-exporter:
   - apiVersion: v2
     appVersion: 24.9.1
+    created: "2025-04-19T15:24:32.727794654Z"
+    description: A Helm chart for azure-metrics-exporter
+    digest: d8361017397e17603cfa418ec8fc2b4d9a08c2c4251c321ea9fcadb347e60e0d
+    home: https://github.com/webdevops/azure-metrics-exporter
+    keywords:
+    - azure-metrics-exporter
+    maintainers:
+    - email: mblaschke82@gmail.com
+      name: mblaschke
+    name: azure-metrics-exporter
+    sources:
+    - https://github.com/webdevops/azure-metrics-exporter/
+    type: application
+    urls:
+    - https://github.com/kahf-infra/helm-charts/releases/download/azure-metrics-exporter-1.2.10/azure-metrics-exporter-1.2.10.tgz
+    version: 1.2.10
+  - apiVersion: v2
+    appVersion: 24.9.1
     created: "2025-04-19T15:09:48.902428698Z"
     description: A Helm chart for azure-metrics-exporter
     digest: dd7f5d20db53bd03318351b18115fbf619148204232f11a0388ae428f0d54e3f
@@ -66,4 +84,4 @@ entries:
     urls:
     - https://github.com/gerkElznik/helm-charts/releases/download/macgruber-0.1.0/macgruber-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-19T15:09:48.902446251Z"
+generated: "2025-04-19T15:24:32.727814431Z"
