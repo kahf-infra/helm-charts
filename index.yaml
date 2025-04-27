@@ -37,6 +37,21 @@ entries:
     urls:
     - https://github.com/kahf-infra/helm-charts/releases/download/azure-metrics-exporter-1.2.9/azure-metrics-exporter-1.2.9.tgz
     version: 1.2.9
+  kube-events:
+  - apiVersion: v2
+    appVersion: 0.6.0
+    created: "2025-04-27T07:08:20.502565008Z"
+    description: provides easy kube-events definitions for event exporting, filtering
+      and alerting.
+    digest: f27b9548a9307d49dd7e37029e8129f02fc00f66e316be1399a7e075931f83c9
+    keywords:
+    - event
+    - operator
+    name: kube-events
+    type: application
+    urls:
+    - https://github.com/kahf-infra/helm-charts/releases/download/kube-events-0.4.2/kube-events-0.4.2.tgz
+    version: 0.4.2
   macgruber:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -84,4 +99,4 @@ entries:
     urls:
     - https://github.com/gerkElznik/helm-charts/releases/download/macgruber-0.1.0/macgruber-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-19T15:24:32.727814431Z"
+generated: "2025-04-27T07:08:20.502585116Z"
