@@ -1,0 +1,131 @@
+operator:
+  enabled: true
+  image:
+    repository: kubesphere/kube-events-operator
+    tag: "" # If unset use v+ .Chart.appVersion
+    pullPolicy: IfNotPresent
+  configReloader:
+    image: jimmidyson/configmap-reload:v0.7.1
+  affinity: {}
+  nodeSelector: {}
+  tolerations: {}
+  resources: {}
+#    limits:
+#      cpu: 200m
+#      memory: 200Mi
+#    requests:
+#      cpu: 20m
+#      memory: 20Mi
+  # Additional volumes on the Deployment definition.
+  volumes: []
+  # Additional volumeMounts on the Deployment definition.
+  volumeMounts: []
+  serviceAccount:
+    create: true
+    name: ""
+  # If true, just clean up cr but not crd
+  cleanupAllCustomResources: false
+  kubectlImage: docker.io/bitnami/kubectl:1.14.1
+
+exporter:
+  enabled: true
+  image:
+    repository: kubesphere/kube-events-exporter
+    tag: "" # If unset use v+ .Chart.appVersion
+    pullPolicy: IfNotPresent
+  affinity: {}
+  nodeSelector: {}
+  tolerations: {}
+  resources: {}
+#    limits:
+#      cpu: 200m
+#      memory: 500Mi
+#    requests:
+#      cpu: 20m
+#      memory: 50Mi
+  # Additional volumes on the output Deployment definition.
+  volumes: []
+  # Additional volumeMounts on the output Deployment definition.
+  volumeMounts: []
+  sinks:
+    stdout:
+      enabled: true
+    additionalWebhooks: []
+    # - url:
+    #   service:
+    #     namespace:
+    #     name:
+    #     port:
+    #     path:
+  
+# Configure fluentbit(operated by https://github.com/fluent/fluent-operator) to collect events logs of exporter.
+# These will be applied only when exporter.stdout.enabled=true and fluentbit.enabled=true.
+fluentbit:
+  enabled: false
+  # Set this to containerd or crio if you want fluentbit to collect CRI format logs.
+  # If not set, it will be auto detected.
+  containerRuntime: ""
+  input:
+    enabled: true
+    tail:
+      refreshIntervalSeconds: 10
+      memBufLimit: 5MB
+      skipLongLines: true
+      dbSync: Normal
+  filter:
+    enabled: true
+    additionalFilters: []
+  output:
+    enabled: true
+    opensearch:
+      host: opensearch-cluster-data.kubesphere-logging-system.svc
+      port: 9200
+      logstashPrefix: ks-whizard-events
+      suppressTypeName: true
+      logstashFormat: true
+      generateID: true
+
+ruler:
+  enabled: false
+  replicas: 2
+  image:
+    repository: kubesphere/kube-events-ruler
+    tag: "" # If unset use v+ .Chart.appVersion
+    pullPolicy: IfNotPresent
+  affinity: {}
+  nodeSelector: {}
+  tolerations: {}
+  resources: {}
+#    limits:
+#      cpu: 500m
+#      memory: 500Mi
+#    requests:
+#      cpu: 50m
+#      memory: 50Mi
+  # Additional volumes on the output Deployment definition.
+  volumes: []
+  # Additional volumeMounts on the output Deployment definition.
+  volumeMounts: []
+  ruleNamespaceSelector: {}
+  ruleSelector: {}
+  sinks:
+    alertmanagers:
+    - namespace: kubesphere-monitoring-system
+      name: alertmanager-operated
+    # webhooks:
+    # - type:
+    #   url:
+    #   service:
+    #     namespace:
+    #     name:
+    #     port:
+    #     path:
+    ## 'stdout' sink type can be either 'notification' or 'alert'
+    # stdout:
+    #   type: notification
+rule:
+  createDefaults: true
+  overrideDefaults: false
+
+# Set timezone env variable to be set in containers
+# timezone: "America/Toronto"
